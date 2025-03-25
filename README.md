@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
+# Single Sign-On (SSO) with Next
+### 📌 Overview
+This project is a frontend implementation of Single Sign-On (SSO) authentication using Next.js. It allows users to authenticate using Google OAuth and manage session persistence via HTTP-only cookies.
+### 🛠️ Technologies Used
+- Next.js - React framework for frontend development
+- Tailwind CSS - Styling framework
+- fetch API - To interact with the backend
+- OAuth 2.0 - Authentication via Google
+### 🚀 Installation & Setup
+#### FrontEnd (NextJS)
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+$ git clone https://github.com/oniauliya99/next-google-sso.git
+$ cd next-google-sso
+
+# Install dependencies
+pnpm install
+
+# Set up environment variables (.env)
+NEXT_PUBLIC_API_URL=http://localhost:3000
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+
+# Start the server
 pnpm dev
-# or
-bun dev
 ```
+### 🔐 Authentication Flow
+1. The user clicks the Sign in with Google button.
+2. The frontend redirects the user to /auth/google.
+3. Google handles authentication and redirects back to /auth/google/redirect.
+4. The backend issues an access token and stores a refresh token in an HTTP-only cookie.
+5. The frontend receives the token and stores it in localStorage.
+6. The user can access protected routes using the token.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📜 API Endpoints
+| Method | Endpoint                  | Description                |
+|--------|---------------------------|----------------------------|
+| **GET** | `/auth/google`            | Redirect to Google OAuth   |
+| **GET** | `/auth/google/redirect`   | Google OAuth callback      |
+| **POST** | `/auth/refresh-token`     | Refresh expired access token |
+| **POST** | `/auth/logout`            | Log out and clear cookies  |
+| **GET** | `/auth/protected`   | Checks if the request contains a valid authentication token      |
+| **GET** | `/users/me`            | Get the logged-in user details   |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🖼️ Screenshots
+- Login With Google
+  ![Deskripsi Gambar](./screenshots/login%20with%20google.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Redirect Login
+  ![Deskripsi Gambar](./screenshots/redirect.png)
 
-## Learn More
+- Dashboard 
+  ![Deskripsi Gambar](./screenshots/login.png)
+  
+- Refresh Token On Cookie
+![Deskripsi Gambar](./screenshots/cookie.png)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 📌 Notes
+- Make sure to replace your_google_client_id and your_google_client_secret in .env.
