@@ -60,7 +60,11 @@ export default function LoginPage() {
           onClick={handleLogin}
           className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex items-center gap-2"
         >
-          <img src="/google.svg" alt="Google Logo" className="w-5 h-5" />
+          <img
+            src="https://developers.google.com/identity/images/g-logo.png"
+            alt="Google Logo"
+            className="w-5 h-5"
+          />
           Login with Google
         </button>
       )}
